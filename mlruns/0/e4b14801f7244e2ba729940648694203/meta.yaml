@@ -1,0 +1,15 @@
+artifact_uri: ./mlruns/0/e4b14801f7244e2ba729940648694203/artifacts
+end_time: 1680436361570
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: e4b14801f7244e2ba729940648694203
+run_name: zealous-snipe-653
+run_uuid: e4b14801f7244e2ba729940648694203
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1680436350792
+status: 3
+tags: []
+user_id: kenmogne

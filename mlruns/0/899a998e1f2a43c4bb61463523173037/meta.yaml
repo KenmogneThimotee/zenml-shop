@@ -1,0 +1,15 @@
+artifact_uri: ./mlruns/0/899a998e1f2a43c4bb61463523173037/artifacts
+end_time: 1680442201704
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 899a998e1f2a43c4bb61463523173037
+run_name: rebellious-shrew-910
+run_uuid: 899a998e1f2a43c4bb61463523173037
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1680442156038
+status: 3
+tags: []
+user_id: kenmogne

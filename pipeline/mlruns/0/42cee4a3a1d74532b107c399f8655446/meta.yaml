@@ -1,0 +1,15 @@
+artifact_uri: file:///home/kenmogne/work/MonthOfZenmlComp/pipeline/mlruns/0/42cee4a3a1d74532b107c399f8655446/artifacts
+end_time: 1680436258687
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 42cee4a3a1d74532b107c399f8655446
+run_name: bold-whale-900
+run_uuid: 42cee4a3a1d74532b107c399f8655446
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1680434992824
+status: 3
+tags: []
+user_id: kenmogne

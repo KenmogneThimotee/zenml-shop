@@ -1,0 +1,15 @@
+artifact_uri: ./mlruns/0/44de1fe6e3c44999ae582d35aea18d3e/artifacts
+end_time: 1680461753711
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 44de1fe6e3c44999ae582d35aea18d3e
+run_name: bold-perch-346
+run_uuid: 44de1fe6e3c44999ae582d35aea18d3e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1680461737107
+status: 3
+tags: []
+user_id: kenmogne

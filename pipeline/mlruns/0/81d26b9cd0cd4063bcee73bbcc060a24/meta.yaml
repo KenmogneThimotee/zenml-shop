@@ -1,0 +1,15 @@
+artifact_uri: file:///home/kenmogne/work/MonthOfZenmlComp/pipeline/mlruns/0/81d26b9cd0cd4063bcee73bbcc060a24/artifacts
+end_time: 1680432859742
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 81d26b9cd0cd4063bcee73bbcc060a24
+run_name: stylish-bat-380
+run_uuid: 81d26b9cd0cd4063bcee73bbcc060a24
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1680431889340
+status: 3
+tags: []
+user_id: kenmogne

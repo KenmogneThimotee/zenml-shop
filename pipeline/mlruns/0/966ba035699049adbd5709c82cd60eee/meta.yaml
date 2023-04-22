@@ -1,0 +1,15 @@
+artifact_uri: file:///home/kenmogne/work/MonthOfZenmlComp/pipeline/mlruns/0/966ba035699049adbd5709c82cd60eee/artifacts
+end_time: 1680442018171
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 966ba035699049adbd5709c82cd60eee
+run_name: inquisitive-bat-560
+run_uuid: 966ba035699049adbd5709c82cd60eee
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1680440971654
+status: 3
+tags: []
+user_id: kenmogne

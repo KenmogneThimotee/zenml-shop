@@ -2,13 +2,14 @@ from evidently.model_profile.model_profile import Profile
 import pandas as pd
 import numpy as np
 import mlflow
-from sklearn.compose import make_column_selector
+from sklearn.compose import ColumnTransformer, make_column_selector
 from zenml.steps import step, Output
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import make_column_transformer
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import GradientBoostingRegressor
-from sklearn.base import RegressorMixin
+from sklearn.base import RegressorMixin, TransformerMixin
+from sklearn.pipeline import Pipeline
 from sklearn.metrics import mean_squared_error
 import pickle
 from zenml.services import BaseService
@@ -20,33 +21,30 @@ from zenml.integrations.evidently.steps import (
 )
 from zenml.integrations.evidently.visualizers import EvidentlyVisualizer
 from zenml.post_execution import StepView
+import bentoml
 
-
-
-@step(experiment_tracker="mlflow_tracker")
+@step(enable_cache=True)
 def data_loader()-> Output(raw_data= pd.DataFrame):
     return  pd.read_csv("./../data/training_data.csv")
 
-@step(experiment_tracker="mlflow_tracker")
+@step
 def data_loader_inference()-> Output(raw_data= pd.DataFrame):
     data = pd.read_csv("./../data/test_data.csv")
     return  data.drop(['cost'], axis=1)
 
-@step(experiment_tracker="mlflow_tracker")
+@step
 def data_loader_validator()-> Output(raw_data= pd.DataFrame):
     data = pd.read_csv("./../data/training_data.csv")
     return  data.drop(['cost'], axis=1)
 
-
-@step(experiment_tracker="mlflow_tracker")
+@step
 def get_label(data: pd.DataFrame) -> Output(raw_data= pd.DataFrame, label= pd.Series):
     label = data['cost']
     return data.drop(['cost'], axis=1), label
 
 
-
-@step(experiment_tracker="mlflow_tracker")
-def transform_data(data: pd.DataFrame) -> Output(transformed_data= np.ndarray):
+@step
+def transform_data(data: pd.DataFrame) -> Output(transformed_data= np.ndarray, transformer = TransformerMixin):
     scaler = StandardScaler()
     encoder = OneHotEncoder()
     
@@ -56,8 +54,8 @@ def transform_data(data: pd.DataFrame) -> Output(transformed_data= np.ndarray):
     transformed_data = transformer.fit_transform(data)
 
     if not isinstance(transformed_data, np.ndarray):
-        return transformed_data.toarray()
-    return transformed_data
+        return transformed_data.toarray(), transformer
+    return transformed_data, transformer
 
 """
 @step(experiment_tracker="mlflow_tracker")
@@ -68,20 +66,19 @@ def transform_predict_data(data: pd.DataFrame) -> Output(transformed_data= np.nd
         return transform_data.toarray()
     return transform_data"""
 
-@step(experiment_tracker="mlflow_tracker")
+@step
 def split_data(transformed_data: np.ndarray, label: pd.Series) -> Output(X_train= np.ndarray, X_test=np.ndarray, y_train=pd.Series, y_test=pd.Series):
     X_train, X_test, y_train, y_test = train_test_split(transformed_data, label, test_size=0.30, random_state=1998)
     return X_train, X_test, y_train, y_test
 
-@step(enable_cache=False, experiment_tracker="mlflow_tracker")
+@step(enable_cache=True)
 def train_model(X_train: np.ndarray, y_train: pd.Series) -> Output(model= RegressorMixin):
-    mlflow.sklearn.autolog()
-    model = GradientBoostingRegressor(n_estimators=500, max_depth=10)
+    model = GradientBoostingRegressor(n_estimators=10, max_depth=2)
     model.fit(X_train, y_train)
     
     return model
 
-@step(experiment_tracker="mlflow_tracker")
+@step
 def evaluate(model: RegressorMixin, X_test: np.ndarray, y_test: pd.Series) -> Output(metric= float):
     """ Calculate the mean squared error """
     
@@ -90,17 +87,21 @@ def evaluate(model: RegressorMixin, X_test: np.ndarray, y_test: pd.Series) -> Ou
     mlflow.log_metric("metric", np.sqrt(metric))
     return np.sqrt(metric)
 
-@step(experiment_tracker="mlflow_tracker")
-def predict(model: RegressorMixin, transformed_data: np.ndarray) -> Output(predictions= np.ndarray):
+@step
+def predict(model: Pipeline, transformed_data: np.ndarray) -> Output(predictions= np.ndarray):
     return model.predict(transformed_data)
 
-@step(experiment_tracker="mlflow_tracker")
-def save_model(model: RegressorMixin) -> Output(filename= str):
-    filename = './../artifact/model/finalized_model.sav'
-    pickle.dump(model, open(filename, 'wb'))
-    return filename
+@step
+def save_model(model: RegressorMixin, transformer: TransformerMixin) -> Output(model= Pipeline):
+    #filename = './../artifact/model/finalized_model.sav'
 
-@step(experiment_tracker="mlflow_tracker")
+    model = Pipeline([('transformer', transformer), ('model', model)])
+    #pickle.dump(pipe, open(filename, 'wb'))
+    bentoml.sklearn.save_model('retail', model)
+
+    return model
+
+@step
 def load_model() -> Output(model= RegressorMixin):
     loaded_model = pickle.load(open('finalized_model.sav', 'rb'))
     return loaded_model
@@ -112,10 +113,9 @@ def prediction_service_loader() -> BaseService:
     client = Client()
     model_deployer = client.active_stack.model_deployer
     services = model_deployer.find_model_server(
-        pipeline_name="training_pipeline",
-        pipeline_step_name="mlflow_model_deployer_step",
-        running=True,
+        model_name="retail",
     )
+    print(model_deployer)
     service = services[0]
     print(service)
     return service
@@ -123,7 +123,7 @@ def prediction_service_loader() -> BaseService:
 @step
 def predictor(
     service: BaseService,
-    data: np.ndarray,
+    data: pd.DataFrame,
 ) -> Output(predictions=list):
     """Run a inference request against a prediction service"""
     service.start(timeout=10)  # should be a NOP if already started
@@ -133,7 +133,7 @@ def predictor(
     #print(f"Prediction is: {[prediction.tolist()]}")
     return [prediction.tolist()]
 
-@step(experiment_tracker="mlflow_tracker")
+@step
 def deployment_trigger(metric: float) -> bool:
     """Only deploy if mse is below 1"""
     return metric < 1.5

@@ -1,0 +1,15 @@
+artifact_uri: file:///home/kenmogne/work/MonthOfZenmlComp/pipeline/mlruns/0/b960a75f33ea44cba07b94d3b64c42d5/artifacts
+end_time: 1680395481933
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: b960a75f33ea44cba07b94d3b64c42d5
+run_name: orderly-squirrel-368
+run_uuid: b960a75f33ea44cba07b94d3b64c42d5
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1680394507752
+status: 3
+tags: []
+user_id: kenmogne

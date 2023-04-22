@@ -1,0 +1,15 @@
+artifact_uri: file:///home/kenmogne/work/MonthOfZenmlComp/pipeline/mlruns/0/a3728a48e62240ad99b3d5a586b0666f/artifacts
+end_time: 1680395489064
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: a3728a48e62240ad99b3d5a586b0666f
+run_name: selective-mouse-678
+run_uuid: a3728a48e62240ad99b3d5a586b0666f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1680395483842
+status: 3
+tags: []
+user_id: kenmogne

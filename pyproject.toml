@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "monthofzenmlcomp"
+version = "0.1.0"
+description = ""
+authors = ["Kenmogne Thimotee <kenmognethimotee@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.9.16"
+zenml = "^0.37.0"
+
+[tool.poetry.group.dev.dependencies]
+zenml = "^0.37.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

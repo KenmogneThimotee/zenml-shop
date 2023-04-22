@@ -1,0 +1,15 @@
+artifact_uri: ./mlruns/0/2b0bce231fd94aa09917a9d414acc07d/artifacts
+end_time: 1680602637762
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 2b0bce231fd94aa09917a9d414acc07d
+run_name: abrasive-ray-986
+run_uuid: 2b0bce231fd94aa09917a9d414acc07d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1680602620243
+status: 3
+tags: []
+user_id: kenmogne

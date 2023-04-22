@@ -1,0 +1,15 @@
+artifact_uri: ./mlruns/0/ae505dc5908e48d69caa3f189e050267/artifacts
+end_time: 1680442880845
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: ae505dc5908e48d69caa3f189e050267
+run_name: lyrical-horse-173
+run_uuid: ae505dc5908e48d69caa3f189e050267
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1680442847104
+status: 3
+tags: []
+user_id: kenmogne
