@@ -1,9 +1,8 @@
 from zenml.pipelines import pipeline
 
 from steps import( data_loader_inference,
-predictor, transform_data,
-prediction_service_loader,
-drift_detector, visualize_results, data_loader_validator)
+predictor,
+prediction_service_loader)
 
 
 @pipeline(enable_cache=False)

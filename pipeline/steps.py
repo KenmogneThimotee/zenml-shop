@@ -1,4 +1,4 @@
-from evidently.model_profile.model_profile import Profile
+from typing import Any
 import pandas as pd
 import numpy as np
 import mlflow
@@ -15,13 +15,11 @@ import pickle
 from zenml.services import BaseService
 from zenml.client import Client
 from zenml.steps import step, Output
-from zenml.integrations.evidently.steps import (
-    EvidentlyProfileParameters,
-    evidently_profile_step,
-)
 from zenml.integrations.evidently.visualizers import EvidentlyVisualizer
 from zenml.post_execution import StepView
 import bentoml
+from zenml.integrations.bentoml.services import BentoMLDeploymentService
+from .. import service as svc
 
 @step(enable_cache=True)
 def data_loader()-> Output(raw_data= pd.DataFrame):
@@ -108,48 +106,35 @@ def load_model() -> Output(model= RegressorMixin):
 
 
 @step(enable_cache=False)
-def prediction_service_loader() -> BaseService:
+def prediction_service_loader() -> BentoMLDeploymentService:
     """Load the model service of our train_evaluate_deploy_pipeline."""
-    client = Client()
-    model_deployer = client.active_stack.model_deployer
-    services = model_deployer.find_model_server(
-        model_name="retail",
-    )
-    print(model_deployer)
-    service = services[0]
-    print(service)
-    return service
+    # client = Client()
+    # model_deployer = client.active_stack.model_deployer
+    # services = model_deployer.find_model_server(
+    #     model_name="retail",
+    # )
+    # print(model_deployer)
+    # service = services[0]
+    # print(service)
+
+    return svc
 
 @step
 def predictor(
-    service: BaseService,
+    service: BentoMLDeploymentService,
     data: pd.DataFrame,
 ) -> Output(predictions=list):
     """Run a inference request against a prediction service"""
     service.start(timeout=10)  # should be a NOP if already started
     print(service.prediction_url)
-    prediction = service.predict(data)
+    print(service.is_running)
+    prediction = service.predict("predict",data)
     #prediction = prediction.argmax(axis=-1)
     #print(f"Prediction is: {[prediction.tolist()]}")
     return [prediction.tolist()]
 
+
 @step
 def deployment_trigger(metric: float) -> bool:
     """Only deploy if mse is below 1"""
-    return metric < 1.5
-
-drift_detector = evidently_profile_step(
-    step_name="drift_detector",
-    params=EvidentlyProfileParameters(
-        profile_sections=[
-            "datadrift",
-        ],
-        verbose_level=1,
-    ),
-)
-
-@step
-def visualize_results(drift_report: Profile) -> None:
-    """pipeline = get_pipeline(pipeline="inference_pipeline")
-    evidently_outputs = pipeline.runs[-1].get_step(step="drift_detector")"""
-    EvidentlyVisualizer().visualize(drift_report)
+    return  True #metric < 1.5

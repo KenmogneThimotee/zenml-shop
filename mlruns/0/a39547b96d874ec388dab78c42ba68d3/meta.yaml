@@ -1,0 +1,15 @@
+artifact_uri: ./mlruns/0/a39547b96d874ec388dab78c42ba68d3/artifacts
+end_time: 1683396745670
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: a39547b96d874ec388dab78c42ba68d3
+run_name: mysterious-dove-795
+run_uuid: a39547b96d874ec388dab78c42ba68d3
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1683396726216
+status: 3
+tags: []
+user_id: thimotee

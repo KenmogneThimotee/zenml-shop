@@ -7,10 +7,10 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "3.9.16"
-zenml = "^0.37.0"
+zenml = "0.38"
 
 [tool.poetry.group.dev.dependencies]
-zenml = "^0.37.0"
+zenml = "^0.38.0"
 
 [build-system]
 requires = ["poetry-core"]

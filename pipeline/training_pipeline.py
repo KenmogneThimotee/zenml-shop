@@ -40,7 +40,7 @@ bento_builder = bento_builder_step(
 bentoml_model_deployer = bentoml_model_deployer_step(
     params=BentoMLDeployerParameters(
         model_name=MODEL_NAME,          # Name of the model
-        port=3001,                      # Port to be used by the http server
+        port=3000,                      # Port to be used by the http server
         production=False,               # Deploy the model in production mode
     )
 )

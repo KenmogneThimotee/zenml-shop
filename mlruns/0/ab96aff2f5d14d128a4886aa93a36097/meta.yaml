@@ -1,0 +1,15 @@
+artifact_uri: ./mlruns/0/ab96aff2f5d14d128a4886aa93a36097/artifacts
+end_time: 1683397389430
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: ab96aff2f5d14d128a4886aa93a36097
+run_name: polite-grub-648
+run_uuid: ab96aff2f5d14d128a4886aa93a36097
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1683397381393
+status: 3
+tags: []
+user_id: thimotee

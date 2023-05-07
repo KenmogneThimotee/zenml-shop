@@ -1,0 +1,15 @@
+artifact_uri: ./mlruns/0/bbbf2bce111a47ec8418fa169bc85a52/artifacts
+end_time: 1683408692865
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: bbbf2bce111a47ec8418fa169bc85a52
+run_name: classy-doe-773
+run_uuid: bbbf2bce111a47ec8418fa169bc85a52
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1683408683321
+status: 3
+tags: []
+user_id: thimotee

@@ -38,19 +38,6 @@ zenml model-deployer register bentoml_deployer --flavor=bentoml
 zenml stack update mlops -d bentoml_deployer 
 
 
-
-# # -- Feature store --
-# echo "-- Feature store --"
-
-# zenml integration install feast
-# zenml feature-store register feast --flavor=feast
-# redis-server --daemonize yes
-# # verify it is running (Unix machines)
-# ps aux | grep redis-server
-# zenml stack update mlops -f feast
-
-
-
 # -- Model registery --
 echo  "-- Model registery --"
 

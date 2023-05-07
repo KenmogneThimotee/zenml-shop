@@ -1,0 +1,15 @@
+artifact_uri: ./mlruns/0/21904eb0611e443b99cf0561fd92aade/artifacts
+end_time: 1683407424457
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 21904eb0611e443b99cf0561fd92aade
+run_name: handsome-whale-224
+run_uuid: 21904eb0611e443b99cf0561fd92aade
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1683407414819
+status: 3
+tags: []
+user_id: thimotee
